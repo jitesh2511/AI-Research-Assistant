@@ -55,7 +55,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 - Development workflow
 - Project structure
 
-### Phase 1 — Application Skeleton
+### ✅ Phase 1 — Application Skeleton
 - Backend setup
 - Frontend setup
 - Basic application communication
@@ -102,3 +102,5 @@ A complete AI-powered research assistant capable of helping users explore, under
 ## License
 
 This project is licensed under the MIT License.
+
+See the [LICENSE](LICENSE) file for details
