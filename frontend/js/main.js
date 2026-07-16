@@ -43,6 +43,7 @@ pdf_upload_input.addEventListener("change", async (event) => {
             body: formData
         });
         const data = await response.json();
+        display_pdf_metadata(data);
         console.log(data);
         // TODO : remove the console log
     } catch (error) {
@@ -50,6 +51,30 @@ pdf_upload_input.addEventListener("change", async (event) => {
         console.error("Error uploading files:", error);
     }   
 });
+
+const pdf_list = document.getElementById("pdf-upload-list")
+
+function display_pdf_metadata(data) {
+    
+    for (let i = 0; i < data.files.length; i++){
+        size = data.files[i].size / (1024*1024);
+        unit = "MB";
+        if (size < 1) {
+            size = size * 1024;
+            unit = "KB";
+        }
+        size = Number(size.toFixed(2));
+        status = data.files[i].upload_status;
+        
+        pdf_list.innerHTML += "<p>Filename : " + data.files[i].filename + " <br> Size : " + size + " " + unit + " <br> Upload Status : " + data.files[i].upload_status + "</p>";
+
+        if (status=="failed") {
+            reason = data.files[i].reason;
+            pdf_list.innerHTML += "<p>Reason : "+reason+"</p>";
+        }
+    }
+
+}
 
 
 // Delete PDFs on leaving page

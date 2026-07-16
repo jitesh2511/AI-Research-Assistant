@@ -7,6 +7,7 @@ def validate_pdf(file: UploadFile, contents) -> dict:
     if not file.filename.lower().endswith(".pdf"):
         return {
             "filename": file.filename,
+            "size":len(contents),
             "upload_status":"failed",
             "reason":"Only PDF files are allowed"
         }
@@ -15,6 +16,7 @@ def validate_pdf(file: UploadFile, contents) -> dict:
     if file.content_type != "application/pdf":
         return {
             "filename": file.filename,
+            "size":len(contents),
             "upload_status":"failed",
             "reason":"Invalid content type"
         }
@@ -23,6 +25,7 @@ def validate_pdf(file: UploadFile, contents) -> dict:
     if len(contents) == 0:
         return {
             "filename": file.filename,
+            "size":len(contents),
             "upload_status":"failed",
             "reason":"File is empty"
         }
