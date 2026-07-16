@@ -60,7 +60,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 - Frontend setup
 - Basic application communication
 
-### Phase 2 — PDF Upload System
+### ✅ Phase 2 — PDF Upload System
 - Upload papers
 - File storage
 

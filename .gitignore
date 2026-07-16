@@ -4,3 +4,6 @@
 # Environment Variables
 .env
 .env.example
+
+# Upload Directory
+uploads/
