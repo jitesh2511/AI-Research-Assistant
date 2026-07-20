@@ -57,19 +57,20 @@ const pdf_list = document.getElementById("pdf-upload-list")
 function display_pdf_metadata(data) {
     
     for (let i = 0; i < data.files.length; i++){
-        size = data.files[i].size / (1024*1024);
+        meta = data.files[i].meta
+        size = meta.size / (1024*1024);
         unit = "MB";
         if (size < 1) {
             size = size * 1024;
             unit = "KB";
         }
         size = Number(size.toFixed(2));
-        status = data.files[i].upload_status;
+        status = meta.upload_status;
         
-        pdf_list.innerHTML += "<p>Filename : " + data.files[i].filename + " <br> Size : " + size + " " + unit + " <br> Upload Status : " + data.files[i].upload_status + "</p>";
+        pdf_list.innerHTML += "<p>Filename : " + meta.filename + " <br> Size : " + size + " " + unit + " <br> No. of Pages : " + meta.pages + " <br> Upload Status : " + status + " <br> Text Extraction Status : " + meta.text_extraction_status +"</p>";
 
         if (status=="failed") {
-            reason = data.files[i].reason;
+            reason = meta.reason;
             pdf_list.innerHTML += "<p>Reason : "+reason+"</p>";
         }
     }

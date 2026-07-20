@@ -1,5 +1,6 @@
 from pathlib import Path
 from fastapi import UploadFile
+import fitz
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -55,3 +56,23 @@ def delete_all_files():
     if UPLOAD_DIR.exists():
         for file in UPLOAD_DIR.glob("*.pdf"):
             file.unlink()
+        
+
+# Extract text from one PDF at a time
+def extract_text(filename: str):
+
+    text = ""
+    pages = 0
+    pdf_path = UPLOAD_DIR / filename
+    with fitz.open(pdf_path) as pdf:
+        pages = pdf.page_count
+        for page in pdf:
+            text += page.get_text()
+
+    report = {
+        "pages": pages,
+        "text":text,
+        "status":"success"
+    }
+        
+    return report
