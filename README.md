@@ -64,7 +64,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 - Upload papers
 - File storage
 
-### Phase 3 — Text Extraction
+### ✅ Phase 3 — Text Extraction
 - Extract text from PDFs
 
 ### Phase 4 — Chunking Pipeline
