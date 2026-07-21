@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import List
 
 from backend.services.pdf import validate_pdf, save_file, delete_all_files, extract_text
+from backend.services.chunking import create_chunks
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -26,7 +27,7 @@ async def upload_files(files: List[UploadFile] = File(...)):
         if valid_dict:
             uploaded_files.append({
                 "meta": valid_dict,
-                "text":""
+                "chunks":""
             })
             continue
 
@@ -36,6 +37,9 @@ async def upload_files(files: List[UploadFile] = File(...)):
 
         # Extract text
         text_report = extract_text(file.filename)
+
+        # Create chunks
+        chunk_report = create_chunks(file.filename, text_report['text'])
         
         # Metadata
         meta = {
@@ -44,12 +48,15 @@ async def upload_files(files: List[UploadFile] = File(...)):
             "pages": text_report['pages'],
             "content_type": file.content_type,
             "upload_status":"success",
-            "text_extraction_status": text_report["status"]
+            "text_extraction_status": text_report["status"],
+            "n_chunks": chunk_report["n_chunks"],
+            "avg_chunk_size": chunk_report["avg_chunk_size"],
+            "chunking_status": chunk_report["status"]
         }
 
         uploaded_files.append({
             "meta":meta,
-            "text": text_report['text']
+            "chunks": chunk_report["chunks"]
         })
 
     return {

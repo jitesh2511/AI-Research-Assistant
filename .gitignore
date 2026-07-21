@@ -7,3 +7,7 @@
 
 # Upload Directory
 uploads/
+
+# Pycache
+**/__pycache__/
+*.pyc

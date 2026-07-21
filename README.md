@@ -67,7 +67,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 ### ✅ Phase 3 — Text Extraction
 - Extract text from PDFs
 
-### Phase 4 — Chunking Pipeline
+### ✅ Phase 4 — Chunking Pipeline
 - Convert documents into searchable chunks
 
 ### Phase 5 — Embedding Generation
