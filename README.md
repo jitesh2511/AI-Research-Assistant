@@ -70,7 +70,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 ### ✅ Phase 4 — Chunking Pipeline
 - Convert documents into searchable chunks
 
-### Phase 5 — Embedding Generation
+### ✅ Phase 5 — Embedding Generation
 - Generate vector representations of text
 
 ### Phase 6 — FAISS Indexing

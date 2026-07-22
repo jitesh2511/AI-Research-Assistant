@@ -1,8 +1,7 @@
-from pathlib import Path
+from config import UPLOAD_DIR
 from fastapi import UploadFile
 import fitz
 
-UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 
