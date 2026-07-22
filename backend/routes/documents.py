@@ -4,6 +4,7 @@ from typing import List
 
 from backend.services.pdf import validate_pdf, save_file, delete_all_files, extract_text
 from backend.services.chunking import create_chunks
+from backend.services.embeddings import generate_embeddings
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -40,6 +41,9 @@ async def upload_files(files: List[UploadFile] = File(...)):
 
         # Create chunks
         chunk_report = create_chunks(file.filename, text_report['text'])
+
+        # Generate Embeddings
+        embedding_report = generate_embeddings(chunk_report['chunks'])
         
         # Metadata
         meta = {
@@ -51,7 +55,9 @@ async def upload_files(files: List[UploadFile] = File(...)):
             "text_extraction_status": text_report["status"],
             "n_chunks": chunk_report["n_chunks"],
             "avg_chunk_size": chunk_report["avg_chunk_size"],
-            "chunking_status": chunk_report["status"]
+            "chunking_status": chunk_report["status"],
+            "n_embeddings": embedding_report["n_embeddings"],
+            "embedding_status": embedding_report["embedding_status"]
         }
 
         uploaded_files.append({

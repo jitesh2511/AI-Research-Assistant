@@ -67,7 +67,7 @@ function display_pdf_metadata(data) {
         size = Number(size.toFixed(2));
         status = meta.upload_status;
         
-        pdf_list.innerHTML += "<p>Filename : " + meta.filename + " <br> Size : " + size + " " + unit + " <br> No. of Pages : " + meta.pages + " <br> Upload Status : " + status + " <br> Text Extraction Status : " + meta.text_extraction_status + " <br> No. of Chunks : " + meta.n_chunks + " <br> Average Chunk Size : " + meta.avg_chunk_size + " <br> Chunking Status : " + meta.chunking_status +"</p>";
+        pdf_list.innerHTML += "<p>Filename : " + meta.filename + " <br> Size : " + size + " " + unit + " <br> No. of Pages : " + meta.pages + " <br> Upload Status : " + status + " <br> Text Extraction Status : " + meta.text_extraction_status + " <br> No. of Chunks : " + meta.n_chunks + " <br> Average Chunk Size : " + meta.avg_chunk_size + " <br> Chunking Status : " + meta.chunking_status + " <br> No. of Embeddings : " + meta.n_embeddings + " <br> Embedding Status : " + meta.embedding_status + "</p>";
 
         if (status=="failed") {
             reason = meta.reason;

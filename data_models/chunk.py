@@ -7,3 +7,4 @@ class Chunk(BaseModel):
     start_char: int
     end_char: int
     length: int
+    embedding: list[float] | None = None
