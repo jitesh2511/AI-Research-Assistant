@@ -83,3 +83,27 @@ function display_pdf_metadata(data) {
 window.addEventListener("pagehide", () => { 
     navigator.sendBeacon(API_BASE_DEV + "/cleanup");
 });
+
+// Get FAISS Index status
+
+const faiss_index_button = document.getElementById("faiss_index_btn");
+
+async function get_index_stats() {
+    
+    try {
+        const response = await fetch(API_BASE_DEV + "/index_stats");
+        const data = await response.json()
+        display_index_stats(data);
+    } catch (error) {
+        alert("Unable to fetch index stats, check console for more details")
+        console.log(error);
+    }
+
+}
+
+faiss_index_button.addEventListener("click", get_index_stats);
+
+function display_index_stats(data) {
+    const stats = document.getElementById("index_stats");
+    stats.innerHTML = "<h3>FAISS Index Stats</h3><p>Ready = " + data.ready + "</p> <p> No. of Vectors = " + data.vectors + "</p> <p>Dimension of Vectors = " + data.dimension + "</p>";
+}
