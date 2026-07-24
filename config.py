@@ -11,3 +11,6 @@ OVERLAP = 100
 
 # Embedding Model Name
 MODEL_NAME = "all-MiniLM-L6-v2"
+
+# Embedding Dimension
+EMBEDDING_DIMENSION = 384

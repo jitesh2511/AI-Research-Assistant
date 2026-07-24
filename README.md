@@ -73,7 +73,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 ### ✅ Phase 5 — Embedding Generation
 - Generate vector representations of text
 
-### Phase 6 — FAISS Indexing
+### ✅ Phase 6 — FAISS Indexing
 - Store and search document embeddings
 
 ### Phase 7 — Semantic Search

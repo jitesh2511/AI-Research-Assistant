@@ -1,5 +1,6 @@
 from data_models.chunk import Chunk
 from config import CHUNK_SIZE, OVERLAP
+import uuid
 
 def create_chunks(document_name: str, text: str) -> dict:
 
@@ -16,14 +17,14 @@ def create_chunks(document_name: str, text: str) -> dict:
     chunks = []
 
     start = 0
-    id = 0
     step = CHUNK_SIZE - OVERLAP
+    count = 0
     while (start <= len(text)):
 
         end = start + CHUNK_SIZE
         chunk_text = text[start:end]
         this_chunk = Chunk(
-            chunk_id = id,
+            chunk_id = str(uuid.uuid4()),
             document_name = document_name,
             text = chunk_text,
             start_char = start,
@@ -32,12 +33,12 @@ def create_chunks(document_name: str, text: str) -> dict:
         )
 
         chunks.append(this_chunk)
-        id += 1
         start += step
+        count+=1
     
     chunk_report = {
-        "n_chunks": id,
-        "avg_chunk_size": round((((id-1) * CHUNK_SIZE) + chunks[id-1].length) / id, 2),
+        "n_chunks": count,
+        "avg_chunk_size": round((((count-1) * CHUNK_SIZE) + chunks[count-1].length) / count, 2),
         "chunks": chunks,
         "status": "success"
     }

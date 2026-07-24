@@ -1,6 +1,7 @@
 from data_models.chunk import Chunk
 from sentence_transformers import SentenceTransformer
-from config import MODEL_NAME
+from config import MODEL_NAME, EMBEDDING_DIMENSION
+import numpy as np
 
 model = SentenceTransformer(MODEL_NAME)
 
@@ -10,8 +11,9 @@ def generate_embeddings(chunks: list[Chunk]) -> dict:
     embeddings = model.encode(texts)
     dimension_check = True
     for chunk, embedding in zip(chunks, embeddings):
-        chunk.embedding = embedding.tolist()
-        if (len(embedding.tolist()) != 384):
+        this_embedding = embedding.tolist()
+        chunk.embedding = this_embedding
+        if (len(this_embedding) != EMBEDDING_DIMENSION):
             dimension_check = False
 
     return {
