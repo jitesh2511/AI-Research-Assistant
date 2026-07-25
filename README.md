@@ -76,7 +76,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 ### ✅ Phase 6 — FAISS Indexing
 - Store and search document embeddings
 
-### Phase 7 — Semantic Search
+### ✅ Phase 7 — Semantic Search
 - Retrieve relevant content from papers
 
 ### Phase 8 — RAG Question Answering

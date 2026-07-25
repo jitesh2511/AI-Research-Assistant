@@ -4,7 +4,7 @@ from typing import List
 from backend.services.pdf import validate_pdf, save_file, delete_all_files, extract_text
 from backend.services.chunking import create_chunks
 from backend.services.embeddings import generate_embeddings
-from backend.services.vector_store import vector_store
+from backend.services.vector_store import vectorStore
 
 router = APIRouter()
 
@@ -43,7 +43,7 @@ async def upload_files(files: List[UploadFile] = File(...)):
         embedding_report = generate_embeddings(chunk_report['chunks'])
 
         # Add Embeddings to FAISS Index
-        vector_store.add_chunks(chunk_report["chunks"])
+        vectorStore.add_chunks(chunk_report["chunks"])
         
         # Metadata
         meta = {
