@@ -107,3 +107,44 @@ function display_index_stats(data) {
     const stats = document.getElementById("index_stats");
     stats.innerHTML = "<h3>FAISS Index Stats</h3><p>Ready = " + data.ready + "</p> <p> No. of Vectors = " + data.vectors + "</p> <p>Dimension of Vectors = " + data.dimension + "</p>";
 }
+
+// Retrieval
+
+async function search(query) {
+    
+    try {
+        const response = await fetch(API_BASE_DEV + "/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: query
+            })
+        });
+        const data = await response.json();
+        console.log(data);
+        display_search_results(data);
+    } catch (error) {
+        alert("Unable to process query, check console for more details");
+        console.log(error);
+    }
+
+}
+
+function display_search_results(data) {
+    const content = document.getElementById("retrieval-content");
+    content.innerHTML += "<h3>Retrieved Chunks</h3><br>";
+
+    for (let i = 0; i < data.length; i++){
+        chunk = data[i]
+        content.innerHTML += "<p>Chunk ID : " + chunk.chunk_id + "<br>Document Name : " + chunk.document_name + "<br>Distance : " + chunk.distance + "<br>Text : \"" + chunk.text + "\"</p><br><br>"; 
+    }
+}
+
+const search_btn = document.getElementById("search-btn");
+
+search_btn.addEventListener("click", async () => {
+    const query = document.getElementById("query").value.trim().toLowerCase();
+    search(query);
+});
