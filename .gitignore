@@ -11,3 +11,7 @@ uploads/
 # Pycache
 **/__pycache__/
 *.pyc
+
+# Logs
+/logs
+*.log

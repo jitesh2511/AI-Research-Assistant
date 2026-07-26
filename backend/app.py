@@ -8,6 +8,10 @@ from .routes.documents import router as document_router
 from .routes.index import router as index_router
 from .routes.search import router as search_router
 
+from logging_config import setup as setup_logging
+
+setup_logging()
+
 app = FastAPI()
 
 app.add_middleware(

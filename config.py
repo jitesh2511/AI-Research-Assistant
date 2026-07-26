@@ -17,3 +17,6 @@ EMBEDDING_DIMENSION = 384
 
 # K-Nearest Embeddings
 K = 3
+
+# Logging Directory
+LOGGING_DIR = Path("logs")

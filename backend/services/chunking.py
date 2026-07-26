@@ -1,11 +1,15 @@
 from data_models.chunk import Chunk
 from config import CHUNK_SIZE, OVERLAP
 import uuid
+import logging
+
+logger = logging.getLogger(__name__)
 
 def create_chunks(document_name: str, text: str) -> dict:
 
     # Validate Chunk Size and Overlap
     if ((CHUNK_SIZE <= 0) or (OVERLAP <= 0) or (OVERLAP >= CHUNK_SIZE)):
+        logger.warning("invalid chunk size or overlap size")
         return {
             "n_chunks": 0,
             "avg_chunk_size": 0,
@@ -42,5 +46,7 @@ def create_chunks(document_name: str, text: str) -> dict:
         "chunks": chunks,
         "status": "success"
     }
+    
+    logger.info(f"created {count} chunks for file \"{document_name}\"")
 
     return chunk_report

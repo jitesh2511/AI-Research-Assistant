@@ -1,6 +1,9 @@
 from config import UPLOAD_DIR
 from fastapi import UploadFile
 import fitz
+import logging
+
+logger = logging.getLogger(__name__)
 
 UPLOAD_DIR.mkdir(exist_ok=True)
 
@@ -10,6 +13,7 @@ def validate_pdf(file: UploadFile, contents) -> dict:
 
     # Check file extension
     if not file.filename.lower().endswith(".pdf"):
+        logger.error("invalid file extension")
         return {
             "filename": file.filename,
             "size":len(contents),
@@ -19,6 +23,7 @@ def validate_pdf(file: UploadFile, contents) -> dict:
         
     # Check MIME type
     if file.content_type != "application/pdf":
+        logger.error("invalid file content type")
         return {
             "filename": file.filename,
             "size":len(contents),
@@ -28,6 +33,7 @@ def validate_pdf(file: UploadFile, contents) -> dict:
     
     # Check if file is empty
     if len(contents) == 0:
+        logger.error("empty file uploaded")
         return {
             "filename": file.filename,
             "size":len(contents),
@@ -47,6 +53,8 @@ def save_file(file: UploadFile, contents):
 
     with open(destination, "wb") as f:
         f.write(contents)
+    
+    logger.info(f"successfully saved \"{file.filename}\"")
 
 
 # Delete all files
@@ -55,6 +63,8 @@ def delete_all_files():
     if UPLOAD_DIR.exists():
         for file in UPLOAD_DIR.glob("*.pdf"):
             file.unlink()
+    
+    logger.info("deleted all files at cleanup")
         
 
 # Extract text from one PDF at a time
@@ -73,5 +83,5 @@ def extract_text(filename: str):
         "text":text,
         "status":"success"
     }
-        
+    logger.info(f"extracted text from \"{filename}\" successfully")
     return report
