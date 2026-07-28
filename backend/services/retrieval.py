@@ -18,6 +18,7 @@ def search_query(query: str) -> list[dict]:
         results.append({
             "chunk_id": chunk.chunk_id,
             "document_name": chunk.document_name,
+            "pages": chunk.pages,
             "distance": float(distance),
             "text": chunk.text
         })

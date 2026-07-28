@@ -37,7 +37,7 @@ async def upload_files(files: List[UploadFile] = File(...)):
         text_report = extract_text(file.filename)
 
         # Create chunks
-        chunk_report = create_chunks(file.filename, text_report['text'])
+        chunk_report = create_chunks(file.filename, text_report['page_info'], text_report['text'])
 
         # Generate Embeddings
         embedding_report = generate_embeddings(chunk_report['chunks'])

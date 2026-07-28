@@ -138,7 +138,7 @@ function display_search_results(data) {
 
     for (let i = 0; i < data.length; i++){
         chunk = data[i]
-        content.innerHTML += "<p>Chunk ID : " + chunk.chunk_id + "<br>Document Name : " + chunk.document_name + "<br>Distance : " + chunk.distance + "<br>Text : \"" + chunk.text + "\"</p><br><br>"; 
+        content.innerHTML += "<p>Chunk ID : " + chunk.chunk_id + "<br>Document Name : " + chunk.document_name + "<br>Pages : " + chunk.pages + "<br>Distance : " + chunk.distance + "<br>Text : \"" + chunk.text + "\"</p><br><br>"; 
     }
 }
 

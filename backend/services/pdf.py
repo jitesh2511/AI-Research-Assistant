@@ -1,5 +1,6 @@
 from config import UPLOAD_DIR
 from fastapi import UploadFile
+from data_models.models import PageInfo
 import fitz
 import logging
 
@@ -71,15 +72,32 @@ def delete_all_files():
 def extract_text(filename: str):
 
     text = ""
+    offset = 0
+    page_info = []
     pages = 0
     pdf_path = UPLOAD_DIR / filename
+
     with fitz.open(pdf_path) as pdf:
         pages = pdf.page_count
-        for page in pdf:
-            text += page.get_text()
+        for page_number, page in enumerate(pdf, start=1):
+            
+            page_text = page.get_text()
+
+            start = offset
+            text += page_text
+            offset += len(page_text)
+            end = offset
+
+            page_info.append(
+                PageInfo(
+                    page_number = page_number,
+                    start_char = start,
+                    end_char = end
+                ))
 
     report = {
         "pages": pages,
+        "page_info": page_info,
         "text":text,
         "status":"success"
     }
