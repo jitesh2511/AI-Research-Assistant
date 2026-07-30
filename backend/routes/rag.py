@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Body
 
-from backend.services.retrieval import search_query as search
+from backend.rag.pipeline import generate_answer
 
 router = APIRouter()
 
-@router.post("/search")
+@router.post("/answer")
 async def search_query(data: dict = Body(...)):
     query = data['query']
-    return search(query)
+    return generate_answer(query)

@@ -110,10 +110,10 @@ function display_index_stats(data) {
 
 // Retrieval
 
-async function search(query) {
+async function answer(query) {
     
     try {
-        const response = await fetch(API_BASE_DEV + "/search", {
+        const response = await fetch(API_BASE_DEV + "/answer", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -134,17 +134,12 @@ async function search(query) {
 
 function display_search_results(data) {
     const content = document.getElementById("retrieval-content");
-    content.innerHTML += "<h3>Retrieved Chunks</h3><br>";
-
-    for (let i = 0; i < data.length; i++){
-        chunk = data[i]
-        content.innerHTML += "<p>Chunk ID : " + chunk.chunk_id + "<br>Document Name : " + chunk.document_name + "<br>Pages : " + chunk.pages + "<br>Distance : " + chunk.distance + "<br>Text : \"" + chunk.text + "\"</p><br><br>"; 
-    }
+    content.innerHTML = "<h3>Answer:</h3><br><p>" + data.answer + "</p>";
 }
 
 const search_btn = document.getElementById("search-btn");
 
 search_btn.addEventListener("click", async () => {
     const query = document.getElementById("query").value.trim().toLowerCase();
-    search(query);
+    answer(query);
 });
