@@ -1,11 +1,11 @@
-from data_models.chunk import Chunk
+from data_models.models import Chunk, PageInfo
 from config import CHUNK_SIZE, OVERLAP
 import uuid
 import logging
 
 logger = logging.getLogger(__name__)
 
-def create_chunks(document_name: str, text: str) -> dict:
+def create_chunks(document_name: str, page_info: list[PageInfo], text: str) -> dict:
 
     # Validate Chunk Size and Overlap
     if ((CHUNK_SIZE <= 0) or (OVERLAP <= 0) or (OVERLAP >= CHUNK_SIZE)):
@@ -40,6 +40,8 @@ def create_chunks(document_name: str, text: str) -> dict:
         start += step
         count+=1
     
+    assign_pages(chunks, page_info)
+
     chunk_report = {
         "n_chunks": count,
         "avg_chunk_size": round((((count-1) * CHUNK_SIZE) + chunks[count-1].length) / count, 2),
@@ -50,3 +52,24 @@ def create_chunks(document_name: str, text: str) -> dict:
     logger.info(f"created {count} chunks for file \"{document_name}\"")
 
     return chunk_report
+
+
+def assign_pages(chunks: list[Chunk], page_info: list[PageInfo]):
+
+    page_index = 0
+
+    for chunk in chunks:
+        
+        chunk.pages = []
+
+        while page_index < len(page_info):
+            
+            page = page_info[page_index]
+
+            if page.start_char < chunk.end_char and page.end_char > chunk.start_char:
+                chunk.pages.append(page.page_number)
+
+            if chunk.end_char <= page.end_char:
+                break
+
+            page_index += 1

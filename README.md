@@ -79,7 +79,7 @@ The project is being built incrementally through small, well-defined phases. Eac
 ### ✅ Phase 7 — Semantic Search
 - Retrieve relevant content from papers
 
-### Phase 8 — RAG Question Answering
+### ✅ Phase 8 — RAG Question Answering
 - Answer questions using retrieved context
 
 ### Phase 9 — Source Attribution

@@ -1,5 +1,5 @@
 from config import EMBEDDING_DIMENSION
-from data_models.chunk import Chunk
+from data_models.models import Chunk
 import numpy as np
 import faiss
 import logging

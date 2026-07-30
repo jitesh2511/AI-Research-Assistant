@@ -1,4 +1,4 @@
-from data_models.chunk import Chunk
+from data_models.models import Chunk
 from sentence_transformers import SentenceTransformer
 from config import MODEL_NAME, EMBEDDING_DIMENSION
 import logging

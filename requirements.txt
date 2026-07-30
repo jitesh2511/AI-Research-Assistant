@@ -1,3 +1,6 @@
+# Environment Variables
+python-dotenv>=1.1.1
+
 # Web Framework
 fastapi>=0.116.1
 uvicorn>=0.35.0
@@ -16,3 +19,6 @@ faiss-cpu>=1.12.0
 
 # Testing
 pytest>=8.4.1
+
+# Gemini
+google-genai>=1.30.0
