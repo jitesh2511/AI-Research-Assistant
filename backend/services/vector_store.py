@@ -15,13 +15,15 @@ class VectorStore:
         logger.info("initialized vector store")
 
     def add_chunks(self, chunks: Chunk):
+
+        self.n_embeddings = len(chunks)
         
         for chunk in chunks:
             embedding = np.asarray(chunk.embedding, dtype=np.float32).reshape(1, -1)
             self.index.add(embedding)
             position = self.index.ntotal - 1
             self.chunk_lookup[position] = chunk
-            self.n_embeddings += 1
+            
         logger.info('added chunks to vector store')
     
     def stats(self):

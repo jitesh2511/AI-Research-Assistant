@@ -1,21 +1,22 @@
 from backend.services.retrieval import search_query as search
 from backend.rag.prompt import build_prompt
 from backend.llm.gemini_provider import geminiProvider
+from data_models.models import AnswerResponse
 
 def generate_answer(query: str) -> dict:
 
-    chunks = search(query)
+    retrievalResult = search(query)
 
-    if not chunks:
-        return {
-            "answer":"Retrieval could not find any similar chunks",
-            "sources":[]
-        }
+    if not retrievalResult:
+        return AnswerResponse(
+            answer="Retrieval could not find any similar chunks",
+            sources=[]
+        )
 
-    prompt = build_prompt(query, chunks)
-    response = geminiProvider.generate(prompt['prompt'])
+    prompt = build_prompt(query, retrievalResult.sources)
+    response = geminiProvider.generate(prompt)
 
-    return {
-        "answer": response,
-        "sources": prompt['sources']
-    }
+    return AnswerResponse(
+        answer=response,
+        sources=retrievalResult.sources
+    )
